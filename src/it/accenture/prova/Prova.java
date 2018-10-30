@@ -9,4 +9,8 @@ package it.accenture.prova;
  */
 public class Prova {
 
+	
+	public Prova() {
+		super();
+	}
 }
