@@ -1,0 +1,5 @@
+<jaxb:bindings xmlns:xsi="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/jaxb/bindingschema_2_0.xsd" version="2.1">
+	<jaxb:globalBindings localScoping="toplevel" generateIsSetMethod="true">
+		<jaxb:serializable uid="145331435" />
+	</jaxb:globalBindings>
+</jaxb:bindings>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.fnz.com/F04" xmlns:mstns="http://www.fnz.com/F04" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fnz.com/F04" elementFormDefault="qualified" attributeFormDefault="qualified" version="2.0.0" id="F04">
+	<xs:include schemaLocation="CommonElements.xsd"/>
+	<xs:element name="Document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header" type="Header" minOccurs="0"/>
+				<xs:element name="Body">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Accounts" type="Accounts"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Footer" type="Footer" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Accounts">
+		<xs:sequence>
+			<xs:element name="Account" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExternalProductId" type="ExternalProductId" minOccurs="0"/>
+						<xs:element name="ExternalAccountId" type="ExternalAccountId"/>
+						<xs:element name="ExternalCustomerId" type="ExternalCustomerId" minOccurs="0"/>
+						<xs:element name="AccountId" type="AccountId" minOccurs="0"/>
+						<xs:element name="AccountType" type="AccountType"/>
+						<!--<xs:element ref="ce:NetOrderAmount"/>-->
+						<xs:element name="HedgeProviderId" type="HedgeProviderId" minOccurs="0"/>
+						<xs:element name="CloseAccount" type="CloseAccount" minOccurs="0"/>
+						<!--<xs:element name="Strategy" type="Strategy"/>-->
+						<xs:element name="Orders" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Order" type="Order" minOccurs="0" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Order">
+		<xs:sequence>
+			<xs:element name="ProductIdentifier" type="ProductIdentifier"/>
+			<xs:element name="ProductCurrency" type="Currency" minOccurs="0"/>
+			<xs:element name="IdentifierType" type="IdentifierType" minOccurs="0"/>
+			<xs:element name="TargetTradeDate" type="TargetTradeDate"/>
+			<xs:element name="OperationDate" type="OperationDate" minOccurs="0"/>
+			<xs:element name="Amount" type="Amount" minOccurs="0"/>
+			<xs:element name="Quantity" type="Quantity" minOccurs="0"/>
+			<xs:element name="Strategy" type="StrategyEnum"/>
+			<xs:element name="OrderCurrency" type="Currency" minOccurs="0"/>
+			<!--<xs:element name="SettlementCurrency" type="Currency" minOccurs="0"/>-->
+			<xs:element name="ExternalOrderId" type="ExternalOrderId" minOccurs="0"/>
+			<!--<xs:element name="RewindOrderId" type="xs:int" minOccurs="0"/>-->
+			<!--<xs:element name="ExternalSwitchId" type="ExternalSwitchId" minOccurs="0"/>-->
+			<xs:element name="Direction" type="Direction" minOccurs="0"/>
+			<xs:element name="MovementType" type="MovementType"/>
+			<xs:element name="ExpectedConfirmationDate" type="ExpectedConfirmationDate" minOccurs="0"/>
+			<xs:element name="RetrospectiveTargetTradeDate" type="RetrospectiveTargetTradeDate" minOccurs="0"/>
+		  <xs:element name="RetrospectiveOperationDate" type="RetrospectiveOperationDate" minOccurs="0"/>
+			<!--<xs:element name="RetrospectiveInstructionDate" type="RetrospectiveInstructionDate" minOccurs="0"/>-->
+			<!--<xs:element name="CancellationFlag" type="xs:boolean" minOccurs="0"/>-->
+			<xs:element name="AggregateOrderId" type="AggregateOrderId" minOccurs="0"/>
+			<xs:element name="OrderStatus" type="OrderStatus" minOccurs="0"/>
+			<!--<xs:element name="OrderStatusReason" type="OrderStatusReason" minOccurs="0"/>-->
+			<xs:element name="InstructionDate" type="InstructionDate" minOccurs="0"/>
+			<xs:element name="OrderId" type="OrderId" minOccurs="0"/>
+			<!--<xs:element name="Market" type="Market" minOccurs="0"/>-->
+			<!--<xs:element name="BatchId" type="BatchId" minOccurs="0"/>-->
+			<!--<xs:element name="ConfirmationDate" type="ConfirmationDate" minOccurs="0"/>-->
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

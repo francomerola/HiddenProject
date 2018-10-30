@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified" version="2.0.0" id="CommonElements">
+	<xs:complexType name="Header">
+		<xs:sequence>
+			<xs:element name="DocumentName" type="xs:string" minOccurs="0"/>
+			<xs:element name="DocumentType" type="DocumentType" minOccurs="0"/>
+			<xs:element name="SchemaVersion" type="xs:token" minOccurs="0"/>
+			<xs:element name="Created" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="TargetProcessingDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="Multipart" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CurrentPage" type="xs:int" minOccurs="0"/>
+						<xs:element name="TotalPages" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DocumentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="F01"/>
+			<xs:enumeration value="F01a"/>
+			<xs:enumeration value="F02"/>
+			<xs:enumeration value="F03"/>
+			<xs:enumeration value="F04"/>
+			<xs:enumeration value="F05"/>
+			<xs:enumeration value="F06"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Footer">
+		<xs:sequence>
+			<xs:element name="Signature" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="InstrumentIdentifier">
+		<xs:restriction base="xs:string">
+			<xs:length value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExternalProductId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Distributor product identification code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExternalAccountId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Provider unique identification code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExternalCustomerId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Customer account reference for display purposes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AccountId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">FNZ identifier for account</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AccountType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Account type enumeration</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Investor"/>
+			<xs:enumeration value="Technical"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CloseAccount">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">This node should only be included in the event of an account closure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Closed" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Instruction to close account</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Reason" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Currency">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">ISO 4217 Currency Code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Money">
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Money specified by currency and amount</xs:documentation>
+			</xs:annotation>
+			<xs:element name="Currency" type="Currency"/>
+			<xs:element name="Amount">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:fractionDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="HedgeProviderId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Hedge provider identifier</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdentifierType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Instrument identifier type enumeration</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ISIN"/>
+			<xs:enumeration value="PTF"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--<xs:simpleType name="Frequency">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Frequency</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Weekly"/>
+			<xs:enumeration value="Monthly"/>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:simpleType name="ProductIdentifier">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The identifier for the product</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AccountLock">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The current status of an account</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FundHardClosure"/>
+			<xs:enumeration value="FundNoPublishedNav"/>
+			<xs:enumeration value="GapEvent"/>
+			<xs:enumeration value="AccountClosure"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AccountStatus">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The current status of an account</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="New"/>
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="PendingClosure"/>
+			<xs:enumeration value="Closed"/>
+			<xs:enumeration value="Locked"/>
+			<xs:enumeration value="CashLock"/>
+			<xs:enumeration value="GapEvent"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--<xs:simpleType name="Market">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">ISO 10383 - Market Identifier Code (MIC)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>-->
+	<!--<xs:simpleType name="NetOrderAmount">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The net order amount</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>-->
+	<!--<xs:simpleType name="WrapperType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The tax wrapper that holds this account's assets</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GIA"/>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:simpleType name="InstructionDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The date on which the investor requested the investment or change of details as detailed in F01 under Account/InstructionDate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<!--<xs:complexType name="GapEventOrder">
+		<xs:sequence>
+			<xs:element name="ProductIdentifier" type="ProductIdentifier"/>
+			<xs:element name="IdentifierType" type="IdentifierType"/>
+			<xs:element name="Market" type="Market"/>
+			<xs:element name="Direction" type="Direction"/>
+			<xs:element name="Amount" type="Money" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Estimated order value</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrderCurrency" type="Currency"/>
+		</xs:sequence>
+	</xs:complexType>-->
+	<xs:simpleType name="RetrospectiveInstructionDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used for rewinds. The date the incorrect instruction was sent or in the case of missing instruction the date it should have sent</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="AggregateOrderId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The unique FNZ identifier assigned to the aggregated pool order</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+	<xs:simpleType name="Amount">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Estimated order value</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="Direction">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">'Sell' or 'Buy' enumeration</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Buy"/>
+			<xs:enumeration value="Sell"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExpectedConfirmationDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The expected confirmation date of the order</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="ExternalOrderId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Customer's unique identifier for this order</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--<xs:simpleType name="ExternalSwitchId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Customer's unique identifier for this switch order</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:simpleType name="MovementType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Instruction movement type enumeration</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Deposit"/>
+			<xs:enumeration value="Withdrawal"/>
+			<xs:enumeration value="WithdrawalFee"/>
+			<xs:enumeration value="GapEvent"/>
+			<xs:enumeration value="InvestorRebalance"/>
+			<xs:enumeration value="ProtectedRebalance"/>
+			<xs:enumeration value="InternalSwitch"/>
+			<xs:enumeration value="ExternalSwitch"/>
+			<xs:enumeration value="RewindAdjustment"/>
+			<xs:enumeration value="PariNavAdjustment"/>
+			<xs:enumeration value="ProtectionLevelReset"/>
+			<xs:enumeration value="Cancellation"/>
+      <xs:enumeration value="RebalanceFee"/>
+			<!--<xs:enumeration value="NotApplicable"/>-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrderId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The unique FNZ identifier for the individual account order</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="BatchId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Batch identifier to which this order belongs</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="ConfirmationDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Date trade has been confirmed</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="OrderStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Authorised"/>
+			<xs:enumeration value="AuthorisedSwitch"/>
+			<xs:enumeration value="Cancelled"/>
+			<xs:enumeration value="Completed"/>
+			<xs:enumeration value="Confirmed"/>
+			<xs:enumeration value="Created"/>
+			<xs:enumeration value="Placed"/>
+			<xs:enumeration value="Pooled"/>
+			<xs:enumeration value="Excluded"/>
+			<xs:enumeration value="Rejected"/>
+			<xs:enumeration value="Delayed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--<xs:simpleType name="OrderStatusReason">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Reason attributed to order status</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="500"/>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:simpleType name="Quantity">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Number of units bought or sold</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="RetrospectiveTargetTradeDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used for rewinds. The target trade date had the instruction been submitted correctly</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+  <xs:simpleType name="RetrospectiveOperationDate">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for rewinds. The operation date had the instruction been submitted correctly</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:date"/>
+  </xs:simpleType>
+	<xs:simpleType name="StrategyEnum">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Order type enumeration</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="QuantityPerAsset"/>
+			<xs:enumeration value="ValueCurrent"/>
+			<xs:enumeration value="ValuePerAsset"/>
+			<xs:enumeration value="ValueTarget"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TargetTradeDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Target date for the trade to be executed</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="OperationDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The effective date of the operation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="ManagementFees">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Management Fees</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="OperationCost">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Operation Cost</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+  <xs:simpleType name="ProtectedUpfrontFee">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Protected Upfront Fee (TCM Cost)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
