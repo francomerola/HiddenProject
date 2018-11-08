@@ -10,7 +10,7 @@ package it.test.prova;
 public class Prova {
 	
 	/*
-	 * Aggiunto nuovo commento
+	 * Aggiunto nuovo comment
 	 */
 
 	private String campoUno;
