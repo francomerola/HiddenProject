@@ -8,6 +8,10 @@ package it.test.prova;
  *
  */
 public class Prova {
+	
+	/*
+	 * Aggiunto nuovo commento
+	 */
 
 	private String campoUno;
 	private String campoDue;
